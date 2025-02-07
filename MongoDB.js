@@ -1,4 +1,3 @@
-
 require("dotenv").config(); // Load environment variables
 const mongoose = require("mongoose");
 
@@ -14,6 +13,7 @@ const connectDB = async () => {
         console.error("❌ MongoDB Connection Error:", error);
         process.exit(1); // Exit process on failure
     }
+
 };
 
 // Export the connection function
