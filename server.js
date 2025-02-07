@@ -1,16 +1,18 @@
+require("dotenv").config();
 const express = require("express");
-const connectDB = require("./MongoDB");
+const cors = require("cors");
+const connectDB = require("./connectDB"); // Import connectDB
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(express.json());
+app.use(cors());
 
-// Connect to MongoDB
+// Connect to MongoDB Atlas
 connectDB();
 
 app.get("/", (req, res) => {
-    res.send("MongoDB Atlas is connected to VS Code!");
+  res.send("Liverpool Fan Discussion Board API is Running! 🔴⚽");
 });
 
-app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
