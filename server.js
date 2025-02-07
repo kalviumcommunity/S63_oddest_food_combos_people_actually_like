@@ -1,18 +1,24 @@
-require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const connectDB = require("./connectDB"); // Import connectDB
+const connectDB = require("./MongoDB");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
+const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB Atlas
+// Connect to MongoDB
 connectDB();
+const mongoose = require("mongoose");
+require("dotenv").config(); // Load environment variables
+
+const Mongo_URL = process.env.MONGO_URL; // Ensure your .env file contains MONGO_URI
+
+mongoose.connect(Mongo_URL);
+
+const db = mongoose.connection;
+
+db.on("error", (err) => console.error("MongoDB connection error:", err));
+db.once("open", () => console.log("Connected to MongoDB successfully"));
 
 app.get("/", (req, res) => {
-  res.send("Liverpool Fan Discussion Board API is Running! 🔴⚽");
+    const dbStatus = mongoose.connection.readyState === 1 ? "Connected" : "Not Connected";
+    res.json({ databaseStatus: dbStatus });
 });
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
