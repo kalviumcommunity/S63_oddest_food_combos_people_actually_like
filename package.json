@@ -1,10 +1,11 @@
 {
   "name": "s63_oddest_food_combos_people_actually_like",
   "version": "1.0.0",
-  "description": "",
+  "description": "Project Title:  Weirdest Food Combinations That People Actually Like",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +15,6 @@
     "express": "^4.21.2",
     "mongoose": "^8.9.5",
     "nodemon": "^3.1.9"
-  }
+  },
+  "devDependencies": {}
 }
