@@ -4,8 +4,16 @@ meta {
   seq: 3
 }
 
-get {
+post {
   url: http://localhost:5000/api/combos
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "Fries Dipped in Milkshake",
+    "description": "A perfect blend of hot, crispy fries and cold, sweet milkshake."
+  }
+  
 }

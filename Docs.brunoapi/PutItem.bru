@@ -4,8 +4,16 @@ meta {
   seq: 4
 }
 
-get {
-  url: http://localhost:5000/combos/{id}
-  body: none
+put {
+  url: http://localhost:5000/api/combos/67a9ad2f1a111a442b9cce1a
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "name": "Fries Dipped in Chocolate Shake",
+    "description": "A crispy, salty fries combo with a rich, sweet chocolate shake."
+  }
+  
 }
