@@ -72,5 +72,8 @@ Reason to why this project:
 
 This is a simple but interesting project where hands-on experience will be developed through CRUD operations: Create, Read, Update, Delete. This also deals with user authentication, data handling, and front-to-back integration.
 
-deployment link 
+ backend deployment link 
 https://s63-oddest-food-combos-people-actually-gh2b.onrender.com
+
+frontend deployment link
+https://app.netlify.com/sites/comfy-vacherin-7e8fa6/overview
