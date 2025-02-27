@@ -1,16 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const connectDB = require("./MongoDB");
 const menuRoutes = require("./routes/routes"); // Import the correct routes file
-
+const cors = require('cors');
 const app = express();
 
-// Connect to the database
 connectDB();
 
 // Middleware for parsing JSON requests
 app.use(express.json()); // Ensures handling of JSON request bodies
-
+app.use(cors());
 // Ping route (testing)
 app.get("/ping", (req, res) => {
   try {
@@ -26,10 +26,10 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the API", db_status: status });
 });
 
-// Use the routes defined in routes.js
-app.use("/api", menuRoutes); // Corrected: Use `menuRoutes`, not `MenuItem`
 
-// Start the server
+app.use("/api", menuRoutes); 
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
