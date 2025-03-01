@@ -1,3 +1,16 @@
+
+import React from "react";
+import "../styles/Card.css"; // Styling for cards
+
+const FoodComboCard = ({ combo }) => {
+  return (
+    <div className="food-card">
+      {combo.imageUrl && <img src={`http://localhost:5000${combo.imageUrl}`} alt={combo.name} />}
+      <h3>{combo.name}</h3>
+      <p>{combo.description}</p>
+    </div>
+  );
+
 // const FoodComboCard = ({ combo }) => {
 //     return (
 //         <div className="food-combo-card">
@@ -46,6 +59,7 @@ const likeCombo = async (id) => {
 const dislikeCombo = async (id) => {
     await axios.patch(`http://localhost:5000/api/menu/${id}/dislike`);
     window.location.reload(); // Refresh to update dislikes
+
 };
 
 export default FoodComboCard;

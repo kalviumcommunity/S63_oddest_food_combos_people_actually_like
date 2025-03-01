@@ -1,0 +1,120 @@
+/* Landing Page Styling */
+.landing-container {
+    text-align: center;
+    background-image: url("../assets/food-bg.jpg"); /* Add a beautiful food-themed image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Header Styling */
+  .header {
+    background: rgba(183, 21, 23, 0.85);
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcc00;
+    text-transform: uppercase;
+  }
+  
+  /* Main Content */
+  .landing-main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Landing Header */
+  .landing-header {
+    background: rgba(135, 65, 65, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: auto;
+  }
+  
+  .landing-header h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .landing-header p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  
+  /* Icon Styling */
+  .food-icon {
+    font-size: 3rem;
+    color: #ffcc00;
+    animation: bounce 1.5s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  /* Add Combo Button */
+  .add-combo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto 0;
+    background-color: #ff4500;
+    color: white;
+    font-size: 20px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .add-combo-btn:hover {
+    background-color: #ff6347;
+    transform: scale(1.1);
+  }
+  
+  .add-icon {
+    margin-right: 10px;
+    font-size: 24px;
+  }
+  
+  /* Footer Styling */
+  .footer {
+    background: rgba(155, 39, 74, 0.85);
+    padding: 10px;
+    font-size: 18px;
+    color: #ffcc00;
+  }
+  
+  .heart-icon {
+    color: red;
+    font-size: 22px;
+    vertical-align: middle;
+  }
+  
+  .add-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    color: white;
+  }
+  
+  .food-icon {
+    font-size: 3rem;
+    color: #ffcc00;
+    animation: bounce 1.5s infinite;
+  }
+  
+  .heart-icon {
+    font-size: 22px;
+    color: red;
+  }
+  

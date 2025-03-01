@@ -1,36 +1,50 @@
 
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { FaPlusCircle } from "react-icons/fa"; // Icon for the button
+import { MdFastfood } from "react-icons/md"; // Icon for food theme
+import { AiFillHeart } from "react-icons/ai"; // Icon for footer love
+import "../styles/LandingPage.css";
+
+
 const LandingPage = () => {
-    const foodCombos = [
-      "Peanut Butter and Pickles",
-      "Pizza with Ketchup",
-      "Fries Dipped in Milkshake",
-      "Banana and Mayonnaise Sandwich",
-      "Watermelon and Feta Cheese",
-    ];
-  
-    return (
-      <div style={{ textAlign: "center", padding: "50px" }}>
-        <h1>Oddest Food Combos People Actually Like</h1>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {foodCombos.map((combo, index) => (
-            <li key={index} style={{ fontSize: "18px", margin: "10px 0" }}>
-              {combo}
-            </li>
-          ))}
-        </ul>
-        <button 
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            backgroundColor: "#ff6347",
-            color: "white",
-            border: "none",
-            cursor: "pointer",
-            borderRadius: "5px",
-          }}
-        >
-          Add Your Own Combo
+  const navigate = useNavigate();
+
+  return (
+    <div className="landing-container">
+      {/* Header Section */}
+      <header className="header">
+        <h1>🍔 Weirdest Food Combos 🍦</h1>
+      </header>
+
+      {/* Main Content */}
+      <main className="landing-main">
+        <div className="landing-header">
+          <MdFastfood className="food-icon" />
+          <h2>Welcome to the Oddest Food Combos Collection! 🍕🍦</h2>
+          <p>
+            Have you ever mixed two unexpected ingredients and found it absolutely delicious?  
+            **Now’s your chance to share your crazy food experiments with the world!** 🎉  
+          </p>
+        </div>
+
+        {/* Add Combo Button */}
+        <button className="add-combo-btn" onClick={() => navigate("/add-combo")}>
+          <FaPlusCircle className="add-icon" /> Add Your Own Combo
         </button>
+
+      </main>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <p>Made with <AiFillHeart className="heart-icon" /> by Food Lovers</p>
+      </footer>
+    </div>
+  );
+};
+
+export default LandingPage;
+
       </div>
     );
   };
