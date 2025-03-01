@@ -1,71 +1,35 @@
-// const express = require("express");
-// const router = express.Router();
-// const MenuItem = require("../models/MenuItem");
-
-// // Route to add a new food combo
-// router.post("/api/combos", async (req, res) => {
-//   try {
-//     const { name, description, imageUrl } = req.body;
-
-//     // Validate required fields
-//     if (!name || !description || !imageUrl) {
-//       return res.status(400).json({ error: "All fields are required" });
-//     }
-
-//     // Create new combo
-//     const newCombo = new MenuItem({ name, description, imageUrl });
-//     await newCombo.save();
-
-//     res.status(201).json({
-//       message: "Food combo added successfully!",
-//       combo: newCombo, // Return the saved combo
-//     });
-//   } catch (error) {
-//     console.error("Error adding combo:", error);
-//     res.status(500).json({ error: "Failed to add combo" });
-//   }
-// });
-
-// module.exports = router;
-
-// const express = require("express");
-// const router = express.Router();
-// const MenuItem = require("../models/MenuItem");
-
-// // Route to add a new food combo
-// router.post("/combos", async (req, res) => { // 👈 FIXED: Removed extra "/api"
-//   try {
-//     const { name, description, imageUrl } = req.body;
-//     const newCombo = new MenuItem({ name, description, imageUrl });
-//     await newCombo.save();
-//     res.status(201).json({ message: "Food combo added successfully!" });
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to add combo" });
-//   }
-// });
-
-// module.exports = router;
-
-
 const express = require("express");
-const router = express.Router();
-const MenuItem = require("../models/MenuItem");
+const multer = require("multer");
+const FoodCombo = require("../models/FoodCombo");
 
-// Route to add a new food combo
-router.post("/combos", async (req, res) => { 
+const router = express.Router();
+const upload = multer({ dest: "uploads/" });
+
+// Create a new food combo
+router.post("/api/combos", upload.single("image"), async (req, res) => {
   try {
-    const { name, description, imageUrl } = req.body;
-    const newCombo = new MenuItem({ name, description, imageUrl });
+    const { name, description } = req.body;
+    const imageUrl = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const newCombo = new FoodCombo({ name, description, imageUrl });
     await newCombo.save();
-    res.status(201).json({ message: "Food combo added successfully!" });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to add combo" });
+
+    // Return updated combos list
+    const updatedCombos = await FoodCombo.find().sort({ createdAt: -1 });
+    res.status(201).json(updatedCombos);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-// Test Route to Check If Routes Are Working
-router.get("/test", (req, res) => {
-  res.json({ message: "API is working!" });
+// Get all food combos
+router.get("/api/combos", async (req, res) => {
+  try {
+    const combos = await FoodCombo.find().sort({ createdAt: -1 });
+    res.status(200).json(combos);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;
