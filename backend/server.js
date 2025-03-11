@@ -5,17 +5,16 @@ const mongoose = require("mongoose");
 const connectDB = require("./MongoDB"); 
 
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const foodRoutes = require("./routes/routes");
+const foodComboRoutes = require("./routes/routes");
 
 const app = express();
 
-// ✅ MongoDB Connection
+// MongoDB Connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB Connected Successfully!");
   } catch (error) {
     console.error("❌ MongoDB Connection Error:", error);
@@ -24,14 +23,18 @@ const connectDB = async () => {
 };
 connectDB();
 
-// ✅ Middleware
+// Middleware
 app.use(cors());
+
+app.use(express.json());
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// ✅ Routes
-app.use("/api", foodRoutes);
+
+// Routes
+app.use("/api/combos", foodComboRoutes);
 
 app.use(express.json());
 
