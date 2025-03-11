@@ -1,85 +1,104 @@
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import '../styles/AddFoodCombo.css';
+// const AddFoodCombo = () => {
+//   const navigate = useNavigate();
+//   const [formData, setFormData] = useState({ name: "", description: "", imageUrl: "" });
+
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch("http://localhost:5000/api/food-combos", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(formData),
+//       });
+//       if (!response.ok) throw new Error("Failed to add food combo");
+//       navigate("/user-history"); // Redirect after adding
+//     } catch (error) {
+//       console.error("Error:", error);
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <input type="text" name="name" value={formData.name} onChange={handleChange} required placeholder="Name" />
+//       <input type="text" name="description" value={formData.description} onChange={handleChange} required placeholder="Description" />
+//       <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} placeholder="Image URL (optional)" />
+//       <button type="submit">Add Combo</button>
+//     </form>
+//   );
+// };
+
+// export default AddFoodCombo;
+
+
 import React, { useState } from "react";
-import axios from "axios";
-import { MdFastfood } from "react-icons/md";
-import { FaUtensils } from "react-icons/fa";
-import { AiOutlineFieldTime } from "react-icons/ai";
-import "../styles/AddFoodCombo.css"
+import "../styles/AddFoodCombo.css"; // ✅ Ensure this is imported
 
-const AddFoodCombo = ({ fetchCombos }) => {
-  const [combo, setCombo] = useState({
-    name: "",
-    description: "",
-    image: null,
-  });
+const AddFoodCombo = () => {
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [image, setImage] = useState(null);
 
-  const handleChange = (e) => {
-    setCombo({ ...combo, [e.target.name]: e.target.value });
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-  const handleFileChange = (e) => {
-    setCombo({ ...combo, image: e.target.files[0] });
-  };
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        if (image) {
+            formData.append("image", image);
+        }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", combo.name);
-    formData.append("description", combo.description);
-    if (combo.image) formData.append("image", combo.image);
+        try {
+            const response = await fetch("http://localhost:5000/api/food-combos", {
+                method: "POST",
+                body: formData,
+            });
 
-    try {
-      await axios.post("http://localhost:5000/api/combos", formData);
-      alert("✅ Combo Added Successfully!");
-      setCombo({ name: "", description: "", image: null });
-      fetchCombos();
-    } catch (error) {
-      console.error("Error adding combo:", error);
-    }
-  };
+            if (!response.ok) throw new Error("Failed to add combo");
 
-  return (
-    <div className="add-food-container">
-      <div className="add-food-card">
-        <h2 className="add-food-title">
-          <MdFastfood /> Add Your Unique Combo
-        </h2>
-        <form className="add-food-form" onSubmit={handleSubmit}>
-          {/* Name Input */}
-          <div className="input-container">
-            <FaUtensils className="input-icon" />
-            <input
-              type="text"
-              name="name"
-              placeholder="Combo Name"
-              value={combo.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            alert("Food combo added successfully!");
+            setName("");
+            setDescription("");
+            setImage(null);
+        } catch (error) {
+            console.error("Error adding food combo:", error);
+        }
+    };
 
-          {/* Description Input */}
-          <div className="input-container">
-            <AiOutlineFieldTime className="input-icon" />
-            <textarea
-              name="description"
-              placeholder="Describe your combo..."
-              rows="3"
-              value={combo.description}
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* Image Upload (Optional) */}
-          <input type="file" name="image" onChange={handleFileChange} />
-
-          {/* Submit Button */}
-          <button className="add-food-btn" type="submit">
-            Add Combo
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+    return (
+        <div className="add-food-combo-container">
+            <h2>Add a New Food Combo</h2>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Food Combo Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+                <textarea
+                    placeholder="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    required
+                />
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.files[0])}
+                />
+                {image && <img src={URL.createObjectURL(image)} alt="Preview" />}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    );
 };
 
 export default AddFoodCombo;
