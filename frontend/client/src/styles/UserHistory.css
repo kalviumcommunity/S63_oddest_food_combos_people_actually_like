@@ -1,70 +1,78 @@
-/* Background Styling */
-.history-container {
-    background: url("https://source.unsplash.com/1600x900/?food,delicious") no-repeat center center/cover;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
-  }
-  
-  /* Title Styling */
-  .history-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #ffcc00;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  /* Individual Food Combo Cards */
-  .combo-card {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 60%;
-    transition: transform 0.3s ease-in-out;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  /* Hover Effect */
-  .combo-card:hover {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 1);
-  }
-  
-  /* Combo Name Styling */
-  .combo-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #ff5722;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  /* Description Styling */
-  .combo-description {
-    font-size: 1.1rem;
-    color: #444;
-    font-style: italic;
-  }
-  
-  /* Icons */
-  .combo-icon {
-    font-size: 1.8rem;
-    color: #ff9800;
-  }
-  
-  .history-icon {
-    font-size: 2rem;
-    color: #ffcc00;
-  }
-  
+.user-history-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.user-history-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user-history-card {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.user-history-card:hover {
+  transform: scale(1.05);
+}
+
+.user-history-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.user-history-buttons {
+  margin-top: 10px;
+}
+
+.edit-btn, .delete-btn, .save-btn, .cancel-btn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background 0.3s ease;
+}
+
+.edit-btn:hover {
+  background: #1e90ff;
+}
+
+.delete-btn:hover {
+  background: #ff6b81;
+}
+
+.save-btn {
+  background: #2ed573;
+}
+
+.save-btn:hover {
+  background: #1dd1a1;
+}
+
+.cancel-btn {
+  background: #57606f;
+}
+
+.cancel-btn:hover {
+  background: #374151;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

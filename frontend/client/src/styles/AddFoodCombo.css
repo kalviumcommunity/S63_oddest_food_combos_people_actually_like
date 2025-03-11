@@ -1,105 +1,63 @@
-/* Apply a beautiful background */
-.add-food-container {
-    background: url("https://source.unsplash.com/1600x900/?food,delicious") no-repeat center center/cover;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-  }
-  
-  /* Card for the Form */
-  .add-food-card {
-    background: rgba(249, 247, 248, 0.763);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    width: 50%;
-    max-width: 500px;
-    text-align: center;
-    animation: fadeIn 0.6s ease-in-out;
-  }
-  
-  /* Form Title */
-  .add-food-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #ff6600;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: 15px;
-  }
-  
-  /* Style each input field */
-  .add-food-form input,
-  .add-food-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  /* Input Focus Effect */
-  .add-food-form input:focus,
-  .add-food-form textarea:focus {
-    border-color: #ff6600;
-    outline: none;
-    box-shadow: 0px 0px 10px rgba(255, 102, 0, 0.4);
-  }
-  
-  /* Submit Button */
-  .add-food-btn {
-    width: 100%;
-    padding: 12px;
-    background: #ff6600;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  /* Hover Effect for Button */
-  .add-food-btn:hover {
-    background: #cc5500;
-    transform: scale(1.05);
-    box-shadow: 0px 4px 10px rgba(255, 102, 0, 0.4);
-  }
-  
-  /* Animation for Form Appearance */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Add an icon beside input fields */
-  .input-container {
-    position: relative;
-    width: 100%;
-  }
-  
-  .input-container input {
-    padding-left: 15px; /* Space for the icon */
-  }
-  
-  .input-icon {
-    position: absolute;
-    left: 1px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
-    color: #ff6600;
-  }
-  
+.add-food-combo-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+}
+
+.add-food-combo-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.add-food-combo-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-food-combo-container input,
+.add-food-combo-container textarea {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  text-align: center;
+}
+
+.add-food-combo-container textarea {
+  resize: none;
+  height: 80px;
+}
+
+.add-food-combo-container button {
+  padding: 12px;
+  font-size: 18px;
+  color: white;
+  background: #1e90ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.add-food-combo-container button:hover {
+  background: #0077cc;
+}
+
+.add-food-combo-container img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-top: 10px;
+  border: 2px solid white;
+}

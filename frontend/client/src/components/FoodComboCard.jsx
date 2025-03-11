@@ -1,13 +1,17 @@
 
 import React from "react";
-import "../styles/Card.css"; // Styling for cards
+import { useNavigate } from "react-router-dom";
 
-const FoodComboCard = ({ combo }) => {
+const FoodComboCard = ({ combo, onDelete }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="food-card">
-      {combo.imageUrl && <img src={`http://localhost:5000${combo.imageUrl}`} alt={combo.name} />}
+    <div className="food-combo-card">
       <h3>{combo.name}</h3>
       <p>{combo.description}</p>
+      {combo.imageUrl && <img src={combo.imageUrl} alt={combo.name} />}
+      <button onClick={() => navigate(`/update-food-combo/${combo._id}`)}>Edit</button>
+      <button onClick={() => onDelete(combo._id)}>Delete</button>
     </div>
   );
 
