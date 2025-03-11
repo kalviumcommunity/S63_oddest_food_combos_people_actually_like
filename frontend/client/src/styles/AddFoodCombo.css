@@ -1,63 +1,95 @@
-.add-food-combo-container {
+.add-combo-container {
   max-width: 500px;
   margin: 40px auto;
   padding: 20px;
-  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  background: #fffaf0;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  color: white;
+  transition: transform 0.3s ease-in-out;
 }
 
-.add-food-combo-container h2 {
-  margin-bottom: 20px;
+.add-combo-container:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  color: #d35400;
+  margin-bottom: 15px;
   font-size: 24px;
   font-weight: bold;
-  text-transform: uppercase;
 }
 
-.add-food-combo-container form {
+form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
-.add-food-combo-container input,
-.add-food-combo-container textarea {
+input {
   width: 100%;
   padding: 12px;
-  border: none;
+  margin: 8px 0;
+  border: 2px solid #e67e22;
   border-radius: 5px;
   font-size: 16px;
   outline: none;
-  text-align: center;
+  transition: border 0.3s;
 }
 
-.add-food-combo-container textarea {
-  resize: none;
-  height: 80px;
+input:focus {
+  border: 2px solid #d35400;
 }
 
-.add-food-combo-container button {
+button {
   padding: 12px;
-  font-size: 18px;
+  margin-top: 10px;
+  background: #e67e22;
   color: white;
-  background: #1e90ff;
   border: none;
   border-radius: 5px;
+  font-size: 18px;
   cursor: pointer;
-  transition: background 0.3s ease-in-out;
+  transition: background 0.3s, transform 0.2s;
 }
 
-.add-food-combo-container button:hover {
-  background: #0077cc;
+button:hover {
+  background: #d35400;
+  transform: translateY(-2px);
 }
 
-.add-food-combo-container img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-top: 10px;
-  border: 2px solid white;
+.success-msg {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .add-combo-container {
+    width: 90%;
+    padding: 15px;
+  }
+  
+  input {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  button {
+    font-size: 16px;
+  }
+}
+
+/* Animation for success message */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
