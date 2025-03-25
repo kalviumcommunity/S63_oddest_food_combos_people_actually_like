@@ -1,91 +1,46 @@
 const express = require("express");
 const router = express.Router();
+// const FoodCombo = require("../models/FoodCombo");
 const MenuItem = require("../models/MenuItem");
 
-// ✅ Get all food combos
-router.get("/", async (req, res) => {
-    try {
-        const foodCombos = await MenuItem.find();
-        res.status(200).json(foodCombos);
-    } catch (error) {
-        console.error("❌ Error fetching food combos:", error);
-        res.status(500).json({ error: "Server error while fetching food combos." });
-    }
-});
-
-// ✅ Add a new food combo (with validation)
+// 🟢 Add a new food combo
 router.post("/add", async (req, res) => {
     try {
-        const { name, description, imageUrl } = req.body;
+        const { name, description, imageUrl, created_by } = req.body;
 
-        // ✅ Backend Validation
-        if (!name || name.length < 3) {
-            return res.status(400).json({ error: "❌ Name must be at least 3 characters long." });
-        }
-        if (!description || description.length < 5) {
-            return res.status(400).json({ error: "❌ Description must be at least 5 characters long." });
-        }
-        if (imageUrl && !/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))$/.test(imageUrl)) {
-            return res.status(400).json({ error: "❌ Invalid image URL format." });
+        if (!name || !description || !created_by) {
+            return res.status(400).json({ error: "All fields are required" });
         }
 
-        const newFoodCombo = new MenuItem({ name, description, imageUrl });
-        await newFoodCombo.save();
-        res.status(201).json({ message: "✅ Food combo added successfully!", foodCombo: newFoodCombo });
+        const newCombo = new MenuItem({ name, description, imageUrl, created_by });
+        await newCombo.save();
+
+        res.status(201).json({ message: "✅ Food combo added successfully!" });
     } catch (error) {
-        console.error("❌ Error adding food combo:", error);
-        res.status(500).json({ error: "Server error while adding food combo." });
+        console.error("Error adding food combo:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 
-// ✅ Update a food combo (Edit)
-router.put("/edit/:id", async (req, res) => {
+// 🟡 Get food combos (Filtered by user if needed)
+router.get("/:userId", async (req, res) => {
     try {
-        const { name, description, imageUrl } = req.body;
-        const { id } = req.params;
+        const { userId } = req.params;
+        console.log(req.params , "line no 28")
+        console.log(userId , "line no 28")     
+        console.log("Fetching food combos for user:", userId);
+        
+        const combos = await MenuItem.find({ created_by: userId }).populate("created_by", "name");
+        console.log("Food Combos Found:", combos);
 
-        // ✅ Backend Validation
-        if (!name || name.length < 3) {
-            return res.status(400).json({ error: "❌ Name must be at least 3 characters long." });
-        }
-        if (!description || description.length < 5) {
-            return res.status(400).json({ error: "❌ Description must be at least 5 characters long." });
-        }
-        if (imageUrl && !/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))$/.test(imageUrl)) {
-            return res.status(400).json({ error: "❌ Invalid image URL format." });
+        if (combos.length===0) {
+            return res.status(404).json({ message: "No food combos found for this user." });
         }
 
-        const updatedCombo = await MenuItem.findByIdAndUpdate(
-            id,
-            { name, description, imageUrl },
-            { new: true, runValidators: true }
-        );
-
-        if (!updatedCombo) {
-            return res.status(404).json({ error: "❌ Food combo not found." });
-        }
-
-        res.status(200).json({ message: "✅ Food combo updated successfully!", foodCombo: updatedCombo });
+        res.status(200).json(combos);
     } catch (error) {
-        console.error("❌ Error updating food combo:", error);
-        res.status(500).json({ error: "Server error while updating food combo." });
-    }
-});
-
-// ✅ Delete a food combo
-router.delete("/delete/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const deletedCombo = await MenuItem.findByIdAndDelete(id);
-
-        if (!deletedCombo) {
-            return res.status(404).json({ error: "❌ Food combo not found." });
-        }
-
-        res.status(200).json({ message: "✅ Food combo deleted successfully!" });
-    } catch (error) {
-        console.error("❌ Error deleting food combo:", error);
-        res.status(500).json({ error: "Server error while deleting food combo." });
+        console.error("Error fetching food combos:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 

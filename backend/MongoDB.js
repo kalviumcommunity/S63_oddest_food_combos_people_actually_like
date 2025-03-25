@@ -10,4 +10,4 @@
 //     process.exit(1); 
 // };
 
-// module.exports = MongoDB
+// module.exports = connectDB;
