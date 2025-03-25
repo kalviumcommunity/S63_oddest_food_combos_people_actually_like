@@ -25,6 +25,11 @@ form {
   flex-direction: column;
 }
 
+#users option {
+  color: blueviolet; /* Apply color to each option */
+  background-color: white; /* Set a white background */
+}
+
 input {
   width: 100%;
   padding: 12px;

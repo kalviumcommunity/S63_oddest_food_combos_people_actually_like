@@ -1,94 +1,109 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../styles/UserHistory.css";
 
 const UserHistory = () => {
-    const [foodCombos, setFoodCombos] = useState([]);
-    const [editingCombo, setEditingCombo] = useState(null); // Track which combo is being edited
-    const [editedData, setEditedData] = useState({ name: "", description: "" });
+    const [users, setUsers] = useState([]);
+    const [editingUser, setEditingUser] = useState(null);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
 
-    // Fetch user food combos
+    // ✅ Fetch Users from API (Only Once)
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get("http://localhost:5003/api/users");
+            setUsers(response.data);
+            console.log("Fetched Users:", response.data);
+        } catch (error) {
+            console.error("Error fetching users:", error);
+        }
+    };
+
     useEffect(() => {
-        fetchCombos();
+        fetchUsers();
     }, []);
 
-    const fetchCombos = async () => {
+    // ✅ Delete User (Fixed)
+    const deleteUser = async (id) => {
         try {
-            const response = await axios.get("http://localhost:5000/api/foodCombos");
-            setFoodCombos(response.data);
+            await axios.delete(`http://localhost:5003/api/users/delete/${id}`);
+
+            setUsers(prevUsers => prevUsers.filter(user => user._id !== id));
+
+            console.log(`User ${id} deleted successfully!`);
         } catch (error) {
-            console.error("❌ Error fetching combos:", error);
+            console.error("Error deleting user:", error);
         }
     };
 
-    // ✅ DELETE functionality
-    const handleDelete = async (id) => {
+    // ✏️ Edit User
+    const editUser = (user) => {
+        setEditingUser(user._id);
+        setUsername(user.username);
+        setEmail(user.email);
+    };
+
+    // ✅ Update User (Fixed)
+    const updateUser = async () => {
+        if (!editingUser) return;
+
         try {
-            await axios.delete(`http://localhost:5000/api/foodCombos/delete/${id}`);
-            setFoodCombos(foodCombos.filter(combo => combo._id !== id)); // Remove from UI
-            alert("✅ Deleted successfully!");
+            const response = await axios.put(`http://localhost:5003/api/users/update/${editingUser}`, {
+                username,
+                email
+            });
+
+            console.log("Updated User Data:", response.data);
+
+            setUsers(prevUsers =>
+                prevUsers.map(user =>
+                    user._id === editingUser ? { ...user, username, email } : user
+                )
+            );
+
+            setEditingUser(null);
+            setUsername("");
+            setEmail("");
         } catch (error) {
-            console.error("❌ Error deleting combo:", error);
-            alert("Failed to delete.");
-        }
-    };
-
-    // ✅ EDIT functionality
-    const handleEditClick = (combo) => {
-        setEditingCombo(combo._id); // Set the combo in edit mode
-        setEditedData({ name: combo.name, description: combo.description });
-    };
-
-    const handleEditChange = (e) => {
-        setEditedData({ ...editedData, [e.target.name]: e.target.value });
-    };
-
-    const handleEditSubmit = async (id) => {
-        try {
-            await axios.put(`http://localhost:5000/api/foodCombos/update/${id}`, editedData);
-            alert("✅ Updated successfully!");
-            setEditingCombo(null); // Exit edit mode
-            fetchCombos(); // Refresh the list
-        } catch (error) {
-            console.error("❌ Error updating combo:", error);
-            alert("Failed to update.");
+            console.error("Error updating user:", error);
         }
     };
 
     return (
-        <div>
-            <h2>🍽️ Your Food Combos</h2>
+        <div className="user-history">
+            <h2>User List</h2>
+
+            {/* ✅ Edit User Form */}
+            {editingUser && (
+                <div className="edit-form">
+                    <h3>Edit User</h3>
+                    <input 
+                        type="text" 
+                        value={username} 
+                        onChange={(e) => setUsername(e.target.value)} 
+                    />
+                    <input 
+                        type="email" 
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                    />
+                    <button onClick={updateUser}>Update</button>
+                    <button onClick={() => setEditingUser(null)}>Cancel</button>
+                </div>
+            )}
+
+            {/* ✅ Display User List */}
             <ul>
-                {foodCombos.map(combo => (
-                    <li key={combo._id}>
-                        {editingCombo === combo._id ? (
-                            // ✅ Edit Mode
-                            <>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={editedData.name}
-                                    onChange={handleEditChange}
-                                />
-                                <input
-                                    type="text"
-                                    name="description"
-                                    value={editedData.description}
-                                    onChange={handleEditChange}
-                                />
-                                <button onClick={() => handleEditSubmit(combo._id)}>✅ Save</button>
-                                <button onClick={() => setEditingCombo(null)}>❌ Cancel</button>
-                            </>
-                        ) : (
-                            // ✅ Normal Display
-                            <>
-                                <strong>{combo.name}</strong>: {combo.description}
-                                <button onClick={() => handleEditClick(combo)}>✏️ Edit</button>
-                                <button onClick={() => handleDelete(combo._id)}>🗑️ Delete</button>
-                            </>
-                        )}
-                    </li>
-                ))}
+                {users.length > 0 ? (
+                    users.map(user => (
+                        <li key={user._id}>
+                            <span>{user.username} ({user.email})</span>
+                            <button onClick={() => editUser(user)}>Edit</button>
+                            <button onClick={() => deleteUser(user._id)}>Delete</button>
+                        </li>
+                    ))
+                ) : (
+                    <p>No users found.</p>
+                )}
             </ul>
         </div>
     );

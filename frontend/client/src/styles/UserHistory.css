@@ -1,45 +1,122 @@
-.history-container {
-  background: #fdf6e3;
+/* 💠 Beautiful Background */
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* 🎯 Main Container */
+.user-history {
+  max-width: 800px;
+  margin: 50px auto;
   padding: 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.user-history:hover {
+  transform: scale(1.02);
+}
+
+/* 🔥 Title */
+h2 {
+  font-size: 2.2rem;
+  color: #d63031;
+  margin-bottom: 20px;
+}
+
+/* 🔄 Edit Form */
+.edit-form {
+  background: #ffeaa7;
+  padding: 15px;
   border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.error {
-  color: red;
-  font-weight: bold;
+.edit-form h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #222;
 }
 
+/* 📝 Input Fields */
+.edit-form input {
+  width: 80%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* ✅ Buttons */
+button {
+  background: #d63031;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #ff7675;
+}
+
+/* 🚀 User List */
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
+/* 👤 User Cards */
 li {
-  background: #ff9a8b;
-  padding: 10px;
+  background: #ffffff;
+  padding: 15px;
   margin: 10px 0;
-  border-radius: 5px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
 }
 
-.edit-btn, .delete-btn {
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.edit-btn {
-  background: #007bff;
-  color: white;
-}
+/* 📱 Responsive Design */
+@media (max-width: 600px) {
+  .user-history {
+      width: 90%;
+      padding: 15px;
+  }
 
-.delete-btn {
-  background: #dc3545;
-  color: white;
-}
+  h2 {
+      font-size: 1.8rem;
+  }
 
-.edit-btn:hover, .delete-btn:hover {
-  opacity: 0.8;
+  li {
+      font-size: 1rem;
+      flex-direction: column;
+      text-align: center;
+  }
+
+  button {
+      width: 100%;
+      margin-top: 5px;
+  }
 }

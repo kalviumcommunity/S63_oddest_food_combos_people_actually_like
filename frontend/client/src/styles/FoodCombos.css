@@ -1,0 +1,110 @@
+/* Apply a clean and stylish font */
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centering the entire container */
+.food-combos-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #d00a0a;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.food-combos-container:hover {
+    transform: scale(1.02);
+}
+
+/* Title styling */
+h1 {
+    font-size: 2.2rem;
+    color: #fd7556;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+/* User Dropdown */
+.user-dropdown {
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #ff5733;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+select:hover {
+    background: #f4eded;
+    color: rgb(20, 12, 12);
+}
+
+/* Food Combo List */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Food Combo Item Card */
+li {
+    background: rgb(212, 192, 192);
+    padding: 15px;
+    margin: 12px auto;
+    max-width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid #ff5733;
+}
+
+li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Food Combo Name */
+li strong {
+    font-size: 1.3rem;
+    color: #333;
+}
+
+/* No Food Combos Found */
+.no-data {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .food-combos-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    li {
+        font-size: 1rem;
+    }
+}
